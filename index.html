@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<link rel="manifest" href="manifest.json">
+<title>FitTrack AI</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+<header><div><h1>FitTrack AI</h1><p id="greeting">Your workout & progress dashboard</p></div><button class="icon" onclick="toggleTheme()">☾</button></header>
+
+<main>
+<section id="home" class="page active">
+  <div class="grid stats">
+    <div class="card"><span>Current weight</span><strong id="currentWeight">—</strong><small id="weightDelta">Add your weight</small></div>
+    <div class="card"><span>Workouts</span><strong id="totalWorkouts">0</strong><small>completed</small></div>
+    <div class="card"><span>Streak</span><strong id="streak">0</strong><small>days</small></div>
+    <div class="card"><span>Goal progress</span><strong id="goalProgress">0%</strong><small>toward target</small></div>
+  </div>
+  <div class="card hero">
+    <div><span class="eyebrow">TODAY</span><h2 id="todayTitle">No workout planned</h2><p id="todaySummary">Create your weekly schedule to get started.</p><button class="primary" onclick="showPage('workout')">Open today's workout</button></div>
+  </div>
+  <div class="sectionTitle"><h2>Quick actions</h2></div>
+  <div class="quick">
+    <button onclick="openWeightModal()">＋ Update weight</button>
+    <button onclick="openWorkoutModal()">＋ Log workout</button>
+    <button onclick="showPage('progress')">▥ View progress</button>
+  </div>
+  <div class="card"><h2>Recent activity</h2><div id="recent"></div></div>
+</section>
+
+<section id="workout" class="page">
+ <div class="sectionTitle"><h2>Workout</h2><button class="primary small" onclick="openWorkoutModal()">＋ Log</button></div>
+ <div class="card"><h3>Weekly schedule</h3><div id="schedule"></div></div>
+ <div class="card"><h3>Today's exercises</h3><div id="todayExercises"></div></div>
+</section>
+
+<section id="progress" class="page">
+ <div class="sectionTitle"><h2>Progress</h2></div>
+ <div class="card"><h3>Weight trend</h3><canvas id="weightChart" width="700" height="280"></canvas><div id="weightHistory"></div></div>
+ <div class="card"><h3>Body measurements</h3><div id="measurements"></div><button class="secondary" onclick="openMeasurementModal()">＋ Add measurement</button></div>
+ <div class="card"><h3>Personal records</h3><div id="records"></div></div>
+</section>
+
+<section id="analytics" class="page">
+ <div class="sectionTitle"><h2>Analytics</h2></div>
+ <div class="card"><h3>AI Progress Review</h3><div id="review" class="review"></div></div>
+ <div class="grid stats"><div class="card"><span>Completion</span><strong id="completion">0%</strong><small>all logged workouts</small></div><div class="card"><span>Run distance</span><strong id="distance">0 km</strong><small>logged total</small></div><div class="card"><span>Workout time</span><strong id="duration">0 min</strong><small>logged total</small></div></div>
+</section>
+
+<section id="profile" class="page">
+ <div class="sectionTitle"><h2>Profile & goals</h2></div>
+ <div class="card form">
+  <label>Name<input id="pName" placeholder="Your name"></label>
+  <label>Age<input id="pAge" type="number" placeholder="Age"></label>
+  <label>Height (cm)<input id="pHeight" type="number" placeholder="178"></label>
+  <label>Starting weight (kg)<input id="pStart" type="number" step="0.1" placeholder="70"></label>
+  <label>Target weight (kg)<input id="pTarget" type="number" step="0.1" placeholder="80"></label>
+  <label>Goal<select id="pGoal"><option>Muscle Gain</option><option>Weight Loss</option><option>Maintain Weight</option><option>General Fitness</option></select></label>
+  <button class="primary" onclick="saveProfile()">Save profile</button>
+ </div>
+ <div class="card"><h3>Weekly plan</h3><div id="planEditor"></div><button class="secondary" onclick="addScheduleDay()">＋ Add day</button></div>
+ <div class="card danger"><button class="secondary" onclick="exportData()">Export data</button><button class="dangerBtn" onclick="resetData()">Reset all data</button></div>
+</section>
+</main>
+
+<nav>
+<button class="active" data-page="home" onclick="showPage('home')">⌂<span>Home</span></button>
+<button data-page="workout" onclick="showPage('workout')">▣<span>Workout</span></button>
+<button data-page="progress" onclick="showPage('progress')">◔<span>Progress</span></button>
+<button data-page="analytics" onclick="showPage('analytics')">⌁<span>Analytics</span></button>
+<button data-page="profile" onclick="showPage('profile')">●<span>Profile</span></button>
+</nav>
+</div>
+
+<div id="modal" class="modal"><div class="modalBox"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
+<script src="app.js"></script>
+</body></html>
